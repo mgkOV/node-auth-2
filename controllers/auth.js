@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const secretKey = 'dkgFFGXngaooaffjnv9988hnf';
+const { secretKey } = require('../config');
 
 // Create JWT
-const createJWT = id => jwt.sign({ sub: id }, secretKey, { expiresIn: '1m' });
+const createJWT = id => jwt.sign({ sub: id }, secretKey, { expiresIn: '30d' });
 
 module.exports = {
   signup(req, res, next) {

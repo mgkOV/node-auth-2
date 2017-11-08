@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // DB setup
+mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'dev') {
   mongoose.connect('mongodb://localhost/auth_2', {
     useMongoClient: true

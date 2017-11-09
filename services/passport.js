@@ -13,24 +13,18 @@ const localOpt = {
 };
 
 const localLogin = new LocalStrategy(localOpt, (username, password, done) => {
-  console.log(username);
+  username = username.toLowerCase();
   User.findOne({ username })
     .then(user => {
-      if (!user) {
-        return done(null, false);
-      }
+      if (!user) return done(null, false);
 
-      user.comparePassword(password, (err, isMatch) => {
-        if (err) {
-          return done(err);
-        }
-        if (!isMatch) {
-          return done(null, false);
-        }
+      return user.comparePassword(password).then(isMatch => {
+        if (!isMatch) return done(null, false);
+
         return done(null, user);
       });
     })
-    .catch(err => done(err));
+    .catch(done);
 });
 
 // Setup option fore jwt strategy

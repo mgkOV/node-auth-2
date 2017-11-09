@@ -29,5 +29,9 @@ module.exports = {
           ? next(err)
           : res.json({ error: 'Username is in use!' });
       });
+  },
+
+  signin(req, res, next) {
+    res.json({ jwt: createJWT(req.user.id) });
   }
 };
